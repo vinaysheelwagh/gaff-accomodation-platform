@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import * as Animatable from "react-native-animatable";
 import { View, Text, FlatList, TouchableOpacity, ImageBackground, Image } from "react-native";
-import { icons } from "../constants";
+import { router } from "expo-router";
 
 const zoomIn = {
   0: {
@@ -23,6 +23,7 @@ const zoomOut = {
 
 const PopularItem = ({ activeItem, item }) => {
   const {
+    $id,
     title,
     image,
     location,
@@ -36,7 +37,11 @@ const PopularItem = ({ activeItem, item }) => {
     <Animatable.View className="mr-1" animation={activeItem === item.$id ? zoomIn : zoomOut} duration={500}>
       <View className="flex-col items-center px-1">
         <View className="w-full rounded-xl border border-gray-300 bg-white shadow-md">
-          <TouchableOpacity activeOpacity={0.7} onPress={() => {}} className="w-full h-40 rounded-t-xl relative">
+          <TouchableOpacity
+            activeOpacity={0.7}
+            className="w-full h-40 rounded-t-xl relative"
+            onPress={() => router.push(`/accomodation/${$id}`)}
+          >
             <Image source={{ uri: image }} className="w-full h-full rounded-t-xl" resizeMode="cover" />
             <View className="absolute top-2 left-2 bg-gray-800 bg-opacity-75 px-2 py-1 rounded-lg">
               <Text className="text-white text-xs">€{price}/Day</Text>

@@ -8,6 +8,7 @@ import { router } from "expo-router";
 const AccomodationCard = ({ accomodationItem, isBookmarksPage, refetchAllPosts }) => {
   const { user } = useGlobalContext();
   const {
+    $id,
     title,
     image,
     location,
@@ -17,7 +18,6 @@ const AccomodationCard = ({ accomodationItem, isBookmarksPage, refetchAllPosts }
     creator: { name, avatar },
     likedBy,
   } = accomodationItem;
-
   const savePost = async () => {
     await updatePost(
       { likedBy: likedBy.includes(user.$id) ? likedBy.filter((itm) => itm !== user.$id) : [...likedBy, user.$id] },
@@ -29,7 +29,7 @@ const AccomodationCard = ({ accomodationItem, isBookmarksPage, refetchAllPosts }
   return (
     <View className="flex-col items-center px-4 mb-5">
       <View className="w-full flex-row items-start p-3 rounded-xl border border-gray-300 bg-white shadow-md">
-        <TouchableOpacity onPress={() => router.push("/accomodation")}>
+        <TouchableOpacity onPress={() => router.push(`/accomodation/${$id}`)}>
           <Image source={{ uri: image }} className="w-20 h-20 rounded-xl" resizeMode="cover" />
         </TouchableOpacity>
         <View className="flex-1 ml-3">
